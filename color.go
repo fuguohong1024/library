@@ -3,7 +3,7 @@ package library
 import "fmt"
 
 
-//控制台打印对应字体的颜色
+// 字体颜色
 const (
 	Black = iota + 30
 	Red
@@ -15,38 +15,55 @@ const (
 	White
 )
 
-func SetBlack(msg string) string {
-	return SetColor(msg, 0, 0, Black)
+// 背景颜色
+const (
+	BgBlack = iota + 40
+	BgRed
+	BgGreen
+	BgYellow
+	BgBlue
+	BgMagenta
+	BgCyan
+	BgWhite
+)
+
+// 字体格式
+const (
+	None = iota
+	// 加粗
+	Bold
+	// 斜体
+	Italic = iota + 3
+	// 下划线
+	Underscore
+	// 闪烁
+	Flash
+	// 删除线
+	Delete = iota + 9
+)
+
+type Font struct {
+	Format int
+	Bg int
+	Color int
 }
 
-func SetRed(msg string) string {
-	return SetColor(msg, 0, 0, Red)
+
+//  "\033[字背景颜色;文字颜色m  你要显示的内容  \033[0m"
+//                    |                         |
+//                 控制颜色                  控制其他属性
+// ESC的ascii码 0x1B
+// bg 背景色  text 字体颜色  conf
+
+
+
+func(f *Font)New(font, bg, color  int)*Font{
+	return &Font{Format: font,
+		Color: color,
+		Bg: bg,
+		}
 }
 
-func SetGreen(msg string) string {
-	return SetColor(msg, 0, 0, Green)
-}
-
-func SetYellow(msg string) string {
-	return SetColor(msg, 0, 0, Yellow)
-}
-
-func SetBlue(msg string) string {
-	return SetColor(msg, 0, 0, Blue)
-}
-
-func SetMagenta(msg string) string {
-	return SetColor(msg, 0, 0, Magenta)
-}
-
-func SetCyan(msg string) string {
-	return SetColor(msg, 0, 0, Cyan)
-}
-
-func SetWhite(msg string) string {
-	return SetColor(msg, 0, 0, White)
-}
-
-func SetColor(msg string, conf, bg,text  int) string {
-	return fmt.Sprintf("%c[%d;%d;%dm%s%c[0m", 0x1B, conf, bg, text, msg, 0x1B)
+func(f *Font)Printf(msg string){
+	fmt.Sprintf("%c[%d;%d;%dm%s%c[0m", 0x1B, f.Format, f.Bg, f.Color, msg, 0x1B)
 }
