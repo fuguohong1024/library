@@ -56,7 +56,7 @@ type Font struct {
 // bg 背景色  text 字体颜色  conf
 
 
-
+// 传参字体   背景色   字体色
 func New(font, bg, color  int)*Font{
 	return &Font{Format: font,
 		Color: color,
