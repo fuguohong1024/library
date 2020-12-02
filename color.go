@@ -32,13 +32,13 @@ const (
 	// 加粗
 	Bold
 	// 斜体
-	Italic = iota + 3
+	Italic = iota + 1
 	// 下划线
 	Underscore
 	// 闪烁
 	Flash
 	// 删除线
-	Delete = iota + 9
+	Delete = iota + 4
 )
 
 type Font struct {
@@ -54,8 +54,8 @@ type Font struct {
 // bg 背景色  text 字体颜色  conf
 
 // 传参字体   背景色   字体色
-func Newcolor(font, bg, color int) *Font {
-	return &Font{Format: font,
+func Newcolor(format, bg, color int) *Font {
+	return &Font{Format: format,
 		Color: color,
 		Bg:    bg,
 	}

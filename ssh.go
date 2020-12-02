@@ -10,6 +10,11 @@ import (
 	"time"
 )
 
+const (
+	Defaultkeypath = "~/.ssh/id_rsa"
+	Defaulttimeout = time.Second
+)
+
 type SSH struct {
 	Host     string
 	Port     string
