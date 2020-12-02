@@ -64,7 +64,7 @@ func (s *SSH) Conn() *ssh.Session {
 	if err != nil {
 		log.Fatal("创建ssh session 失败", err)
 	}
-	defer session.Close()
+	//defer session.Close()
 	return session
 }
 

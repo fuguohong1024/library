@@ -61,6 +61,6 @@ func Newcolor(format, bg, color int) *Font {
 	}
 }
 
-func (f *Font) String(msg string) string {
-	return fmt.Sprintf("%c[%d;%d;%dm%s%c[0m", 0x1B, f.Format, f.Bg, f.Color, msg, 0x1B)
+func (f *Font) Printf(msg string) {
+	fmt.Printf("%c[%d;%d;%dm%s%c[0m", 0x1B, f.Format, f.Bg, f.Color, msg, 0x1B)
 }
