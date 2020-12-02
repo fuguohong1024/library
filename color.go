@@ -2,7 +2,6 @@ package library
 
 import "fmt"
 
-
 // 字体颜色
 const (
 	Black = iota + 30
@@ -44,10 +43,9 @@ const (
 
 type Font struct {
 	Format int
-	Bg int
-	Color int
+	Bg     int
+	Color  int
 }
-
 
 //  "\033[字背景颜色;文字颜色m  你要显示的内容  \033[0m"
 //                    |                         |
@@ -55,15 +53,14 @@ type Font struct {
 // ESC的ascii码 0x1B
 // bg 背景色  text 字体颜色  conf
 
-
 // 传参字体   背景色   字体色
-func New(font, bg, color  int)*Font{
+func Newcolor(font, bg, color int) *Font {
 	return &Font{Format: font,
 		Color: color,
-		Bg: bg,
-		}
+		Bg:    bg,
+	}
 }
 
-func(f *Font)Printf(msg string){
+func (f *Font) Printf(msg string) {
 	fmt.Sprintf("%c[%d;%d;%dm%s%c[0m", 0x1B, f.Format, f.Bg, f.Color, msg, 0x1B)
 }
