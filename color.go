@@ -57,7 +57,7 @@ type Font struct {
 
 
 
-func(f *Font)New(font, bg, color  int)*Font{
+func New(font, bg, color  int)*Font{
 	return &Font{Format: font,
 		Color: color,
 		Bg: bg,
