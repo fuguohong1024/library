@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"golang.org/x/crypto/ssh"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
@@ -40,7 +39,7 @@ func Newssh(host, port, user, password, typ, keypath string, timeout time.Durati
 }
 
 // 返回session
-func (s *SSH) Conn() *ssh.Session {
+func (s *SSH) Conn() *ssh.Client {
 	conf := ssh.ClientConfig{
 		Timeout:         s.Timeout,
 		User:            s.User,
@@ -53,8 +52,8 @@ func (s *SSH) Conn() *ssh.Session {
 	}
 	//dial 获取ssh client
 	addr := fmt.Sprintf("%s:%s", s.Host, s.Port)
-	sshClient, err := ssh.Dial("tcp", addr, &conf)
-	if err != nil {
+	sshClient, _ := ssh.Dial("tcp", addr, &conf)
+	/*if err != nil {
 		log.Fatal("创建ssh client 失败", err)
 	}
 	defer sshClient.Close()
@@ -64,8 +63,14 @@ func (s *SSH) Conn() *ssh.Session {
 	if err != nil {
 		log.Fatal("创建ssh session 失败", err)
 	}
-	//defer session.Close()
-	return session
+	defer session.Close()
+	//执行远程命令
+	combo,err := session.CombinedOutput("whoami; cd /; ls -al;echo https://github.com/dejavuzhou/felix")
+	if err != nil {
+		log.Fatal("远程执行cmd 失败",err)
+	}
+	log.Println("命令输出:",string(combo))*/
+	return sshClient
 }
 
 // 从ssh key文件中读取认证信息
